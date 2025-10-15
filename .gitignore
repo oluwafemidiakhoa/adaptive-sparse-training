@@ -1,0 +1,23 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.coverage
+.hypothesis/
+*.log
+.venv/
+venv/
+
+# Dataset files (too large for GitHub)
+examples/data/
+*.tar.gz
+data_batch_*
+test_batch
+batches.meta
