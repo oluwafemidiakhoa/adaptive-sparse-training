@@ -17,7 +17,7 @@ Combines:
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/sundew_algorithms.git
+git clone https://github.com/oluwafemidiakhoa/sundew_algorithms.git
 cd sundew_algorithms
 
 # Install dependencies
