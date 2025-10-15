@@ -15,10 +15,9 @@ import torch.nn as nn
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 
-# Add parent directories to path
-repo_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(repo_root / "deepseek_physical_ai"))
-sys.path.insert(0, str(repo_root / "src"))
+# Add parent directory to path
+parent_dir = Path(__file__).parent.parent
+sys.path.insert(0, str(parent_dir))
 
 from adaptive_training_loop_batched import BatchedAdaptiveSparseTrainer as AdaptiveSparseTrainer
 from sparse_transformer import SparseViT, SparseAttentionConfig

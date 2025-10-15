@@ -7,10 +7,9 @@ Runs in ~30 seconds
 import sys
 from pathlib import Path
 
-# Add paths
-repo_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(repo_root / "deepseek_physical_ai"))
-sys.path.insert(0, str(repo_root / "src"))
+# Add parent directory to path
+parent_dir = Path(__file__).parent.parent
+sys.path.insert(0, str(parent_dir))
 
 print("=" * 70)
 print("ADAPTIVE SPARSE TRAINING - QUICK VALIDATION")
