@@ -403,6 +403,7 @@ def test_ast_activation_rate(device, target_rate, epochs=1):
         "test_name": f"ast_{int(target_rate*100)}pct",
         "target_rate": target_rate,
         "actual_rate": np.mean(metrics["activation_rates"]),
+        "activation_rate": np.mean(metrics["activation_rates"]),  # For backward compatibility
         "epochs": epochs,
         "avg_epoch_time": np.mean(metrics["epoch_times"]),
         "final_val_acc": metrics["val_accuracies"][-1],
