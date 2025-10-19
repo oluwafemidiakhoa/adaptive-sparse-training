@@ -18,6 +18,56 @@ Production-ready implementation of **Adaptive Sparse Training** with **Sundew Ad
 | **Activation Rate** | 10.4% | ✅ On 10% target |
 | **Training Time** | 10.5 min | vs 120 min baseline |
 
+## ⚠️ Scope and Limitations
+
+### What This Validates
+
+✅ **Core concept**: Adaptive sample selection maintains accuracy while using 10% of data
+✅ **Controller stability**: PI control with EMA smoothing achieves stable 10% activation
+✅ **Energy efficiency**: 89.6% reduction in samples processed per epoch
+
+### What This Does NOT Claim
+
+❌ **Not faster than optimized training**: My baseline is unoptimized SimpleCNN. For comparison, [airbench](https://github.com/KellerJordan/cifar10-airbench) achieves 94% accuracy in 2.6s on A100
+❌ **Not SOTA on CIFAR-10**: This is proof-of-concept validation, not competition with state-of-the-art methods
+❌ **Not production-ready at scale**: Needs validation on larger datasets (ImageNet) and modern architectures (ResNet, ViT)
+
+### Honest Baseline Comparison
+
+**My experimental setup:**
+- **Model**: SimpleCNN (3 conv layers + classifier)
+- **Hardware**: Consumer GPU (GTX 1660 / similar)
+- **Training**: Unoptimized, basic augmentation, no mixed precision
+- **Baseline time**: 120 min (training on 100% of samples)
+- **AST time**: 10.5 min (training on 10.4% of samples)
+- **Baseline accuracy**: ~60%
+- **AST accuracy**: 61.2% (same or slightly better)
+
+**State-of-the-art for context:**
+- [airbench](https://github.com/KellerJordan/cifar10-airbench): 94% accuracy in 2.6 seconds on A100
+- This work focuses on **sample selection efficiency**, not training optimization
+
+### The Real Question
+
+**Does adaptive selection add value ON TOP OF optimized training methods?**
+
+That's the next validation step. Current work proves:
+1. ✓ Concept works on controlled baseline
+2. ✓ Adaptive selection > random sampling
+3. ✓ PI controller maintains stability across 40 epochs
+
+**Critical next experiments:**
+- [ ] Test adaptive selection with optimized baselines (airbench-style)
+- [ ] Validate on ImageNet with ResNet/ViT
+- [ ] Compare to curriculum learning implementations
+- [ ] Multi-GPU distributed training validation
+
+### Why Start With CIFAR-10?
+
+Using CIFAR-10 with a simple setup **isolates the variable**: does adaptive sample selection work?
+
+**Answer**: Yes, but requires validation at scale to prove practical value.
+
 ## 🎯 What is Adaptive Sparse Training?
 
 AST is an energy-efficient training technique that **selectively processes important samples** while skipping less informative ones:
@@ -292,12 +342,21 @@ See [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) for more details.
 
 ## 🤝 Contributing
 
-Contributions welcome! Please:
+**Critical experiments needed** (help wanted!):
+- [ ] Test adaptive selection on optimized baselines ([airbench](https://github.com/KellerJordan/cifar10-airbench), etc.)
+- [ ] ImageNet validation with modern architectures (ResNet, ViT)
+- [ ] Comparison to curriculum learning and active learning methods
+- [ ] Multi-GPU/distributed training implementation
+- [ ] Language model pretraining experiments
+
+**Code contributions welcome:**
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit changes (`git commit -m 'Add amazing feature'`)
 4. Push to branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
+
+**Interested in collaborating?** Open an issue describing what you'd like to work on!
 
 ## 📄 License
 
