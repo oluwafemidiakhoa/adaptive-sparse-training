@@ -68,6 +68,24 @@ Using CIFAR-10 with a simple setup **isolates the variable**: does adaptive samp
 
 **Answer**: Yes, but requires validation at scale to prove practical value.
 
+## 🔬 ImageNet-100 Validation
+
+**Ready to scale AST to ImageNet?** Complete resources available:
+
+📋 **[IMAGENET100_INDEX.md](IMAGENET100_INDEX.md)** - Start here for complete navigation
+
+**Quick links**:
+- [KAGGLE_IMAGENET100_AST.py](KAGGLE_IMAGENET100_AST.py) - Production code (570 lines)
+- [IMAGENET100_QUICK_START.md](IMAGENET100_QUICK_START.md) - 1-hour execution guide
+- [IMAGENET100_TROUBLESHOOTING.md](IMAGENET100_TROUBLESHOOTING.md) - Error fixes
+- [CIFAR10_VS_IMAGENET100.md](CIFAR10_VS_IMAGENET100.md) - What changes
+
+**Predicted results**: 75-80% accuracy, 90% energy savings, no retuning needed
+
+**Status**: Code ready, guides complete, free GPU available (Kaggle)
+
+---
+
 ## 🎯 What is Adaptive Sparse Training?
 
 AST is an energy-efficient training technique that **selectively processes important samples** while skipping less informative ones:
