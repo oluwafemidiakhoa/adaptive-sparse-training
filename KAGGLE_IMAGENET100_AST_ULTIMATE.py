@@ -56,12 +56,12 @@ class Config:
 
     # AST Configuration
     target_activation_rate = 0.10
-    initial_threshold = 0.50
+    initial_threshold = 2.5  # CRITICAL: ImageNet significance scores are 2-5 (vs CIFAR-10's 0.5-1.5)
 
-    # PI Controller - TUNED FOR IMAGENET (faster convergence)
-    adapt_kp = 0.005   # 3× stronger than CIFAR-10 (larger batches need faster response)
-    adapt_ki = 0.0002  # 4× stronger for better steady-state tracking
-    ema_alpha = 0.3    # Same smoothing
+    # PI Controller - AGGRESSIVE for ImageNet (complexity is 49× higher!)
+    adapt_kp = 0.02    # 13× stronger than CIFAR-10
+    adapt_ki = 0.001   # 20× stronger for steady-state
+    ema_alpha = 0.2    # Faster adaptation (less smoothing)
 
     # Energy Model
     energy_per_activation = 1.0
@@ -211,15 +211,16 @@ class SundewAlgorithm:
         proportional = self.kp * error
 
         # Integral with anti-windup
-        if 0.01 < self.activation_threshold < 0.99:
+        if 0.01 < self.activation_threshold < 10.0:  # Allow threshold to go much higher
             self.integral_error += error
             self.integral_error = max(-50, min(50, self.integral_error))
         else:
             self.integral_error *= 0.90
 
         # CRITICAL: Update threshold (increase when activation too high)
+        # No upper limit! ImageNet significance scores are much higher than CIFAR-10
         new_threshold = self.activation_threshold + proportional + self.ki * self.integral_error
-        self.activation_threshold = max(0.01, min(0.99, new_threshold))
+        self.activation_threshold = max(0.01, new_threshold)  # Only lower bound
 
         # Energy tracking
         baseline_energy = batch_size * self.energy_per_activation
