@@ -58,10 +58,10 @@ class Config:
     target_activation_rate = 0.10
     initial_threshold = 0.50
 
-    # PI Controller - FIXED VALUES
-    adapt_kp = 0.0015  # Same as CIFAR-10
-    adapt_ki = 0.00005  # Same as CIFAR-10
-    ema_alpha = 0.3
+    # PI Controller - TUNED FOR IMAGENET (faster convergence)
+    adapt_kp = 0.005   # 3× stronger than CIFAR-10 (larger batches need faster response)
+    adapt_ki = 0.0002  # 4× stronger for better steady-state tracking
+    ema_alpha = 0.3    # Same smoothing
 
     # Energy Model
     energy_per_activation = 1.0
