@@ -1,10 +1,12 @@
 # Adaptive Sparse Training (AST) - Energy-Efficient Deep Learning
 
+**Developed by Oluwafemi Idiakhoa** | [GitHub](https://github.com/oluwafemidiakhoa) | Independent Researcher
+
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Production-ready implementation of **Adaptive Sparse Training** with **Sundew Adaptive Gating** - achieving up to **92.12% accuracy on ImageNet-100** with **61% energy savings** and zero accuracy degradation.
+Production-ready implementation of **Adaptive Sparse Training** with **Sundew Adaptive Gating** - achieving **92.12% accuracy on ImageNet-100** with **61% energy savings** and zero accuracy degradation. Validated on 126,689 images with ResNet50.
 
 ![AST Architecture](batched_adaptive_sparse_training_diagram.png)
 
@@ -394,9 +396,11 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file for
 
 ## 🙏 Acknowledgments
 
-- **DeepSeek Physical AI** - Inspiration for energy-aware training
+This work was independently developed by **Oluwafemi Idiakhoa** with inspiration from:
+- **DeepSeek Physical AI** - Energy-aware training concepts
 - **Sundew Algorithm** - Adaptive gating framework
-- **CIFAR-10 Dataset** - Validation benchmark
+- **PyTorch Community** - Excellent deep learning framework
+- **Kaggle** - Free GPU access for validation
 
 ## 📚 Citation
 
@@ -405,9 +409,10 @@ If you use this code in your research, please cite:
 ```bibtex
 @software{adaptive_sparse_training_2025,
   title={Adaptive Sparse Training with Sundew Gating},
-  author={Diakhoa, Oluwafemi},
+  author={Idiakhoa, Oluwafemi},
   year={2025},
-  url={https://github.com/oluwafemidiakhoa/adaptive-sparse-training}
+  url={https://github.com/oluwafemidiakhoa/adaptive-sparse-training},
+  note={ImageNet-100 validation: 92.12\% accuracy, 61\% energy savings}
 }
 ```
 
@@ -427,24 +432,17 @@ If you use this code in your research, please cite:
 - Production-ready implementations available
 - Full documentation and guides published
 
-### Upcoming Announcements (Week of October 28, 2025)
+### Announcements LIVE (October 28, 2025) ✅
 
-We'll be sharing our ImageNet-100 breakthrough results across multiple platforms:
+ImageNet-100 breakthrough results now shared across all platforms:
 
-**Reddit (r/MachineLearning)**
-- Monday, October 28 @ 9-11 AM EST
-- Technical deep-dive with full results and implementation details
-- Community Q&A and discussion
+**✅ Reddit (r/MachineLearning)** - Technical deep-dive with implementation details and community Q&A
 
-**Twitter/X (@oluwafemidiakhoa)**
-- Monday, October 28 @ 10 AM EST
-- Thread covering results, methodology, and impact
-- Links to code and documentation
+**✅ Twitter/X (@oluwafemidiakhoa)** - Results thread covering methodology and impact
 
-**LinkedIn**
-- Tuesday, October 29 @ 8-9 AM EST
-- Professional perspective on Green AI and sustainability
-- Industry applications and cost savings
+**✅ LinkedIn** - Professional perspective on Green AI and sustainability applications
+
+**✅ Dev.to** - Complete technical article with code walkthrough
 
 **Join the Discussion:**
 - Star ⭐ this repository to stay updated
