@@ -96,15 +96,18 @@ print(f"Energy Savings: {results['energy_savings']:.2f}%")
 print(f"Training Speedup: {results['speedup']:.2f}×")
 ```
 
-### Option 3: Interactive Colab Notebook (Coming Soon!)
+### Option 3: Interactive Colab Notebook
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/oluwafemidiakhoa/adaptive-sparse-training/blob/main/AST_Demo_CIFAR10.ipynb)
 
 Zero setup, run in your browser:
-- Try AST on CIFAR-10 (5 minutes)
+- Try AST on CIFAR-10 (10 minutes)
 - See real-time energy monitoring
 - Experiment with activation rates
-- Compare against baseline training
+- Compare AST vs baseline side-by-side
+- Interactive visualizations
 
-[Open in Colab](#) *(notebook being prepared)*
+**Just click "Open in Colab" and select Runtime → Run all!**
 
 ### What You'll See
 
