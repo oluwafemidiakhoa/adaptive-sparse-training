@@ -1,0 +1,38 @@
+name: Publish to TestPyPI
+
+on:
+  push:
+    branches:
+      - test-release  # Trigger on push to test-release branch
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  build-and-publish-test:
+    name: Build and publish to TestPyPI
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install build twine
+
+    - name: Build package
+      run: python -m build
+
+    - name: Check distribution
+      run: twine check dist/*
+
+    - name: Publish to TestPyPI
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.TESTPYPI_API_TOKEN }}
+      run: twine upload --repository testpypi dist/* --skip-existing

@@ -229,7 +229,16 @@ AST:        Process ONLY ~5,200 important samples per epoch
 
 ## 📦 Installation
 
-### Option 1: Install from GitHub (Recommended for now)
+### Option 1: Install from PyPI (Recommended)
+
+```bash
+pip install adaptive-sparse-training
+```
+
+[![PyPI version](https://badge.fury.io/py/adaptive-sparse-training.svg)](https://pypi.org/project/adaptive-sparse-training/)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+
+### Option 2: Install from GitHub (Latest Development)
 
 ```bash
 # Install directly from GitHub
@@ -239,13 +248,6 @@ pip install git+https://github.com/oluwafemidiakhoa/adaptive-sparse-training.git
 git clone https://github.com/oluwafemidiakhoa/adaptive-sparse-training.git
 cd adaptive-sparse-training
 pip install -e .
-```
-
-### Option 2: PyPI Package (Coming Soon!)
-
-```bash
-# Will be available as:
-pip install adaptive-sparse-training
 ```
 
 ### Requirements
