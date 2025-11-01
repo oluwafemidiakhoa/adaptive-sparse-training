@@ -229,52 +229,77 @@ AST:        Process ONLY ~5,200 important samples per epoch
 
 ## 📦 Installation
 
+### Option 1: Install from GitHub (Recommended for now)
+
+```bash
+# Install directly from GitHub
+pip install git+https://github.com/oluwafemidiakhoa/adaptive-sparse-training.git
+
+# Or clone and install locally
+git clone https://github.com/oluwafemidiakhoa/adaptive-sparse-training.git
+cd adaptive-sparse-training
+pip install -e .
+```
+
+### Option 2: PyPI Package (Coming Soon!)
+
+```bash
+# Will be available as:
+pip install adaptive-sparse-training
+```
+
 ### Requirements
 - Python 3.8+
 - PyTorch 2.0+
-- torchvision
-- matplotlib
-- numpy
-
-### Quick Start
-
-```bash
-# Clone repository
-git clone https://github.com/oluwafemidiakhoa/adaptive-sparse-training.git
-cd adaptive-sparse-training
-
-# Install dependencies
-pip install torch torchvision matplotlib numpy
-
-# Run standalone training
-python KAGGLE_VIT_BATCHED_STANDALONE.py
-```
+- torchvision 0.15+
+- numpy 1.21+
+- tqdm 4.60+
 
 ## 🎮 Usage
 
-### Basic Training
+### Basic Training (3 Lines!)
 
 ```python
-from adaptive_sparse_trainer import AdaptiveSparseTrainer, SundewConfig
+from adaptive_sparse_training import AdaptiveSparseTrainer, ASTConfig
 
-# Configure Sundew adaptive gating
-config = SundewConfig(
-    activation_threshold=0.50,        # Starting threshold
-    target_activation_rate=0.10,      # Target 10% activation
-    adapt_kp=0.0015,                  # PI controller gains
-    adapt_ki=0.00005,
-)
+# Configure AST
+config = ASTConfig(target_activation_rate=0.40)  # 40% activation = 60% savings
 
 # Initialize trainer
-trainer = AdaptiveSparseTrainer(
-    model=your_model,
-    train_loader=train_loader,
-    val_loader=val_loader,
-    config={"target_activation_rate": 0.10, "epochs": 40}
+trainer = AdaptiveSparseTrainer(model, train_loader, val_loader, config)
+
+# Train with automatic energy monitoring
+results = trainer.train(epochs=100)
+print(f"Energy Savings: {results['energy_savings']:.1f}%")
+```
+
+### Advanced Configuration
+
+```python
+from adaptive_sparse_training import ASTConfig
+
+# Fine-tune PI controller gains
+config = ASTConfig(
+    target_activation_rate=0.40,     # Target 40% activation
+    initial_threshold=3.0,            # Starting threshold
+    adapt_kp=0.005,                   # Proportional gain
+    adapt_ki=0.0001,                  # Integral gain
+    ema_alpha=0.1,                    # EMA smoothing (lower = smoother)
+    use_amp=True,                     # Mixed precision training
+    device="cuda"                     # GPU device
 )
 
-# Train with energy monitoring
-trainer.train()
+trainer = AdaptiveSparseTrainer(
+    model=model,
+    train_loader=train_loader,
+    val_loader=val_loader,
+    config=config,
+    optimizer=torch.optim.Adam(model.parameters(), lr=0.001),
+    criterion=torch.nn.CrossEntropyLoss(reduction='none')
+)
+
+# Two-stage training (warmup + AST)
+results = trainer.train(epochs=100, warmup_epochs=10)
 ```
 
 ### Real-Time Energy Monitoring
