@@ -3,6 +3,7 @@
 Copy this ENTIRE script into ONE Kaggle notebook cell and run!
 
 Expected: 70-72% accuracy, 80% energy savings in ~8-10 hours
+Features: Real-time monitoring with live plots!
 """
 
 import torch
@@ -17,6 +18,8 @@ from pathlib import Path
 import time
 import numpy as np
 import os
+import matplotlib.pyplot as plt
+from IPython.display import clear_output
 
 # Configuration
 class Config:
@@ -130,6 +133,10 @@ scaler = GradScaler(enabled=config.use_amp)
 sundew = Sundew(config)
 best_acc = 0.0
 
+# Tracking for plots
+history = {'epoch': [], 'train_acc': [], 'val_acc': [], 'energy_savings': [],
+           'activation_rate': [], 'time': []}
+
 print("=" * 80)
 print(f"🔥 TRAINING: {config.num_epochs} epochs | Target: {config.target_activation_rate*100:.0f}% activation")
 print("=" * 80)
@@ -191,6 +198,86 @@ for epoch in range(1, config.num_epochs + 1):
 
     val_acc = 100.0 * val_correct / val_total
     epoch_time = (time.time() - epoch_start) / 60
+
+    # Update history
+    history['epoch'].append(epoch)
+    history['train_acc'].append(train_acc)
+    history['val_acc'].append(val_acc)
+    history['energy_savings'].append(info['savings'])
+    history['activation_rate'].append(100 * info['rate'])
+    history['time'].append(epoch_time)
+
+    # Clear output and plot
+    if epoch % 2 == 0 or epoch == 1:  # Plot every 2 epochs
+        clear_output(wait=True)
+
+        fig, axes = plt.subplots(2, 2, figsize=(16, 10))
+        fig.suptitle(f'🔥 ImageNet-1K AST Training - Epoch {epoch}/{config.num_epochs}',
+                     fontsize=16, fontweight='bold')
+
+        # Plot 1: Accuracy
+        axes[0, 0].plot(history['epoch'], history['train_acc'], 'o-', label='Train Acc', linewidth=2, markersize=6)
+        axes[0, 0].plot(history['epoch'], history['val_acc'], 's-', label='Val Acc', linewidth=2, markersize=6)
+        axes[0, 0].axhline(y=70, color='r', linestyle='--', alpha=0.7, label='Target (70%)')
+        axes[0, 0].set_xlabel('Epoch', fontsize=12, fontweight='bold')
+        axes[0, 0].set_ylabel('Accuracy (%)', fontsize=12, fontweight='bold')
+        axes[0, 0].set_title('🏆 Accuracy Progress', fontsize=14, fontweight='bold')
+        axes[0, 0].legend(fontsize=10)
+        axes[0, 0].grid(True, alpha=0.3)
+        axes[0, 0].set_ylim([0, 100])
+
+        # Plot 2: Energy Savings
+        axes[0, 1].plot(history['epoch'], history['energy_savings'], 'o-', color='green',
+                       linewidth=2, markersize=6)
+        axes[0, 1].axhline(y=75, color='r', linestyle='--', alpha=0.7, label='Target (75%)')
+        axes[0, 1].set_xlabel('Epoch', fontsize=12, fontweight='bold')
+        axes[0, 1].set_ylabel('Energy Savings (%)', fontsize=12, fontweight='bold')
+        axes[0, 1].set_title('⚡ Energy Savings', fontsize=14, fontweight='bold')
+        axes[0, 1].legend(fontsize=10)
+        axes[0, 1].grid(True, alpha=0.3)
+        axes[0, 1].set_ylim([0, 100])
+
+        # Plot 3: Activation Rate
+        axes[1, 0].plot(history['epoch'], history['activation_rate'], 'o-', color='blue',
+                       linewidth=2, markersize=6)
+        axes[1, 0].axhline(y=config.target_activation_rate*100, color='r', linestyle='--',
+                          alpha=0.7, label=f'Target ({config.target_activation_rate*100:.0f}%)')
+        axes[1, 0].set_xlabel('Epoch', fontsize=12, fontweight='bold')
+        axes[1, 0].set_ylabel('Activation Rate (%)', fontsize=12, fontweight='bold')
+        axes[1, 0].set_title('🎯 Sample Activation Rate', fontsize=14, fontweight='bold')
+        axes[1, 0].legend(fontsize=10)
+        axes[1, 0].grid(True, alpha=0.3)
+        axes[1, 0].set_ylim([0, 50])
+
+        # Plot 4: Summary Stats
+        axes[1, 1].axis('off')
+        summary_text = f"""
+╔══════════════════════════════════════════════════════╗
+║            CURRENT TRAINING STATUS                   ║
+╠══════════════════════════════════════════════════════╣
+║                                                      ║
+║  Epoch:              {epoch:3d}/{config.num_epochs}                           ║
+║  Best Val Acc:       {max(history['val_acc']):6.2f}%                      ║
+║  Current Val Acc:    {val_acc:6.2f}%                      ║
+║  Current Train Acc:  {train_acc:6.2f}%                      ║
+║  Energy Savings:     {info['savings']:6.2f}%                      ║
+║  Activation Rate:    {100*info['rate']:6.2f}%                      ║
+║  Epoch Time:         {epoch_time:6.1f} min                   ║
+║  Total Time:         {(time.time()-total_start)/60:6.1f} min ({(time.time()-total_start)/3600:.1f} hrs)      ║
+║  Est. Remaining:     {((time.time()-total_start)/epoch)*(config.num_epochs-epoch)/60:6.1f} min ({((time.time()-total_start)/epoch)*(config.num_epochs-epoch)/3600:.1f} hrs)      ║
+║                                                      ║
+║  Status: {'✅ ON TRACK!' if val_acc >= 30 and info['savings'] >= 70 else '⏳ Training...'}                                 ║
+╚══════════════════════════════════════════════════════╝
+        """
+        axes[1, 1].text(0.5, 0.5, summary_text, fontsize=11, family='monospace',
+                       ha='center', va='center',
+                       bbox=dict(boxstyle='round,pad=1', facecolor='lightyellow',
+                                edgecolor='orange', linewidth=3))
+
+        plt.tight_layout()
+        plt.savefig(f'{config.checkpoint_dir}/training_progress_epoch{epoch}.png',
+                   dpi=150, bbox_inches='tight')
+        plt.show()
 
     print(f"\n✅ Epoch {epoch}/{config.num_epochs} | Val Acc: {val_acc:5.2f}% | "
           f"Train Acc: {train_acc:5.2f}% | ⚡ Savings: {info['savings']:5.1f}% | "
