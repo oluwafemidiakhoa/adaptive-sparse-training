@@ -1,0 +1,14 @@
+LICENSE
+MANIFEST.in
+README.md
+requirements.txt
+setup.py
+adaptive_sparse_training/__init__.py
+adaptive_sparse_training/config.py
+adaptive_sparse_training/sundew.py
+adaptive_sparse_training/trainer.py
+adaptive_sparse_training.egg-info/PKG-INFO
+adaptive_sparse_training.egg-info/SOURCES.txt
+adaptive_sparse_training.egg-info/dependency_links.txt
+adaptive_sparse_training.egg-info/requires.txt
+adaptive_sparse_training.egg-info/top_level.txt

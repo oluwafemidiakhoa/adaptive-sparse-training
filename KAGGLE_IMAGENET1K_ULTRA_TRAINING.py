@@ -110,7 +110,52 @@ def get_dataloaders(config):
     ])
 
     train_dataset = ImageFolder(str(Path(config.data_dir) / 'train'), transform=train_transform)
-    val_dataset = ImageFolder(str(Path(config.data_dir) / 'val'), transform=val_transform)
+
+    # Check if validation is organized or flat
+    val_dir = str(Path(config.data_dir) / 'val')
+    try:
+        val_dataset = ImageFolder(val_dir, transform=val_transform)
+    except FileNotFoundError:
+        # Validation images are in flat directory, need to organize them
+        print("⚠️  Validation images are not organized by class.")
+        print("   Looking for alternative validation structure...")
+
+        # Try alternative paths
+        alt_paths = [
+            str(Path(config.data_dir).parent / 'val'),
+            str(Path(config.data_dir) / 'validation'),
+            str(Path(config.data_dir).parent / 'validation'),
+        ]
+
+        val_dataset = None
+        for alt_path in alt_paths:
+            if os.path.exists(alt_path):
+                try:
+                    val_dataset = ImageFolder(alt_path, transform=val_transform)
+                    print(f"   ✅ Found validation at: {alt_path}")
+                    break
+                except:
+                    continue
+
+        if val_dataset is None:
+            print("   ❌ Could not find organized validation set.")
+            print("   📝 Options:")
+            print("      1. Skip validation (train only mode)")
+            print("      2. Use a subset of training data for validation")
+            print("   Using option 2: Creating 5% validation split from training data...")
+
+            # Use 5% of training data for validation
+            total_size = len(train_dataset)
+            val_size = int(0.05 * total_size)
+            train_size = total_size - val_size
+
+            from torch.utils.data import random_split
+            train_dataset, val_dataset = random_split(
+                train_dataset,
+                [train_size, val_size],
+                generator=torch.Generator().manual_seed(42)
+            )
+            print(f"   ✅ Created validation split: {val_size:,} samples")
 
     print(f"📦 Loaded {len(train_dataset):,} training images")
     print(f"📦 Loaded {len(val_dataset):,} validation images")
