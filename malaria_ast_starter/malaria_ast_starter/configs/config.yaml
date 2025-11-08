@@ -1,0 +1,17 @@
+model_name: efficientnet_b0
+num_classes: 2
+image_size: 224
+
+epochs: 30
+batch_size: 64
+learning_rate: 0.0003
+weight_decay: 0.0001
+num_workers: 2
+amp: true
+
+train_dir: data/train
+val_dir: data/val
+
+save_dir: checkpoints
+resume: true
+patience: 7

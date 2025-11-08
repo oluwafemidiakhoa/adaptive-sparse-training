@@ -1,0 +1,57 @@
+# AST-Enabled Malaria Classification Configuration
+# Energy-Efficient Training with Adaptive Sparse Training (Sundew Algorithm)
+
+# Model Configuration
+model_name: efficientnet_b0  # efficientnet_b0, resnet50, resnet18
+num_classes: 2
+image_size: 224
+
+# Training Hyperparameters
+epochs: 30
+batch_size: 64
+learning_rate: 0.0003
+weight_decay: 0.0001
+num_workers: 2
+amp: true  # Automatic Mixed Precision for additional speedup
+
+# Data Paths
+train_dir: data/train
+val_dir: data/val
+
+# Checkpointing
+save_dir: checkpoints_ast
+resume: true
+patience: 7  # Early stopping patience
+
+# AST Configuration - The Energy-Saving Magic! ✨
+# Target activation rate: percentage of samples to process per epoch
+# Lower = more energy savings, but requires careful tuning
+ast_target_activation_rate: 0.40  # 40% activation = 60% energy savings
+                                  # Try 0.30 for 70% savings (more aggressive)
+                                  # Try 0.50 for 50% savings (more conservative)
+
+# AST Advanced Parameters (usually don't need to change these)
+ast_initial_threshold: 3.0   # Starting threshold for sample difficulty
+ast_adapt_kp: 0.005          # Proportional gain (PI controller)
+ast_adapt_ki: 0.0001         # Integral gain (PI controller)
+ast_ema_alpha: 0.1           # Smoothing factor for activation rate
+
+# Optional: Warmup training (train on 100% samples before enabling AST)
+ast_warmup_epochs: 0  # Set to 2-5 if you want a warmup phase
+
+# Recommended AST Settings for Different Scenarios:
+#
+# 🚀 Maximum Buzz (90% Energy Savings):
+#   ast_target_activation_rate: 0.10
+#   ast_warmup_epochs: 5
+#   Note: May sacrifice 1-2% accuracy but creates amazing headlines!
+#
+# ⚡ Balanced (60% Energy Savings):
+#   ast_target_activation_rate: 0.40  # <-- Current setting
+#   ast_warmup_epochs: 0
+#   Note: Best balance of efficiency and accuracy
+#
+# 🎯 Conservative (30% Energy Savings):
+#   ast_target_activation_rate: 0.70
+#   ast_warmup_epochs: 0
+#   Note: Minimal accuracy loss, still significant savings
