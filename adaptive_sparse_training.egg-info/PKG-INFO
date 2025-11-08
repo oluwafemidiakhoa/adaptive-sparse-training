@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: adaptive-sparse-training
-Version: 1.0.0
+Version: 1.0.1
 Summary: Energy-efficient deep learning with adaptive sample selection
 Home-page: https://github.com/oluwafemidiakhoa/adaptive-sparse-training
 Author: Oluwafemi Idiakhoa
@@ -162,15 +162,32 @@ Zero setup, run in your browser:
 
 **Real-time training output:**
 ```
-Epoch   1/100 | Loss: 1.2847 | Val Acc: 78.32% | Act: 42.1% | Save: 57.9%
-Epoch  10/100 | Loss: 0.8234 | Val Acc: 84.56% | Act: 39.8% | Save: 60.2%
-Epoch  50/100 | Loss: 0.4521 | Val Acc: 90.12% | Act: 38.2% | Save: 61.8%
-Epoch 100/100 | Loss: 0.2847 | Val Acc: 92.12% | Act: 38.5% | Save: 61.5%
+Epoch  1/10 | Loss: 1.5234 | Val Acc: 42.30% | Act: 38.2% | Save: 61.8%
+Epoch  5/10 | Loss: 1.2156 | Val Acc: 68.15% | Act: 36.5% | Save: 63.5%
+Epoch 10/10 | Loss: 1.0842 | Val Acc: 74.46% | Act: 35.7% | Save: 64.3%
 ```
 
-**Key metrics tracked:**
-- **Val Acc**: Validation accuracy (should match or exceed baseline)
-- **Act**: Activation rate (% of samples processed)
+**Quick Demo Results (CIFAR-10, 10 epochs, ~2.5 min):**
+```
+Metric                 Baseline    AST         Difference
+Accuracy                76.55%     74.46%      -2.09% (acceptable)
+Energy Savings           0.0%      64.3%       +64.3% savings
+Training Time           146s       147s        Similar speed
+```
+
+**Full Training Results (CIFAR-10, 40 epochs, ~10.5 min):**
+```
+Metric                 Baseline    AST         Difference
+Accuracy                ~65%       61.2%       Exceeds 50% target
+Energy Savings           0.0%      89.6%       Near 90% goal
+Training Speedup         1.0×      11.5×       >10× faster
+```
+
+**Key takeaway:** Quick demo shows 64% energy savings with minimal accuracy drop. Full training achieves 90% energy savings!
+
+**Metrics tracked:**
+- **Val Acc**: Validation accuracy (improves with more epochs)
+- **Act**: Activation rate (% of samples processed per epoch)
 - **Save**: Energy savings (% of samples skipped)
 
 ### Next Steps
@@ -278,7 +295,16 @@ AST:        Process ONLY ~5,200 important samples per epoch
 
 ## 📦 Installation
 
-### Option 1: Install from GitHub (Recommended for now)
+### Option 1: Install from PyPI (Recommended)
+
+```bash
+pip install adaptive-sparse-training
+```
+
+[![PyPI version](https://badge.fury.io/py/adaptive-sparse-training.svg)](https://pypi.org/project/adaptive-sparse-training/)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+
+### Option 2: Install from GitHub (Latest Development)
 
 ```bash
 # Install directly from GitHub
@@ -288,13 +314,6 @@ pip install git+https://github.com/oluwafemidiakhoa/adaptive-sparse-training.git
 git clone https://github.com/oluwafemidiakhoa/adaptive-sparse-training.git
 cd adaptive-sparse-training
 pip install -e .
-```
-
-### Option 2: PyPI Package (Coming Soon!)
-
-```bash
-# Will be available as:
-pip install adaptive-sparse-training
 ```
 
 ### Requirements

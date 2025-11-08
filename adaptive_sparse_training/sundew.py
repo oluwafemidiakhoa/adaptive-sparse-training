@@ -56,6 +56,14 @@ class SundewAlgorithm:
         Returns:
             torch.Tensor: Significance scores [batch_size]
         """
+        # Handle scalar loss (when reduction='mean' was used incorrectly)
+        if losses.dim() == 0:
+            raise ValueError(
+                "Loss tensor has no dimensions (scalar). "
+                "Please ensure your criterion uses reduction='none' for per-sample losses. "
+                "Example: nn.CrossEntropyLoss(reduction='none')"
+            )
+
         # RAW loss component (higher loss = more important)
         loss_component = losses
 
@@ -80,6 +88,14 @@ class SundewAlgorithm:
                 - active_mask (torch.Tensor): Boolean mask [batch_size]
                 - energy_info (dict): Statistics about activation and energy
         """
+        # Handle scalar loss (when reduction='mean' was used incorrectly)
+        if losses.dim() == 0:
+            raise ValueError(
+                "Loss tensor has no dimensions (scalar). "
+                "Please ensure your criterion uses reduction='none' for per-sample losses. "
+                "Example: nn.CrossEntropyLoss(reduction='none')"
+            )
+
         batch_size = losses.size(0)
 
         # Compute significance scores

@@ -60,7 +60,11 @@ class AdaptiveSparseTrainer:
         if criterion is None:
             self.criterion = nn.CrossEntropyLoss(reduction='none')  # Per-sample loss
         else:
+            # Ensure criterion uses reduction='none' for per-sample losses
             self.criterion = criterion
+            # Warn if criterion doesn't support reduction='none'
+            if hasattr(criterion, 'reduction') and criterion.reduction != 'none':
+                print(f"Warning: criterion.reduction is '{criterion.reduction}', expected 'none' for AST")
 
         # Initialize Sundew algorithm
         self.sundew = SundewAlgorithm(config)

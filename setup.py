@@ -11,7 +11,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="adaptive-sparse-training",
-    version="1.0.0",
+    version="1.0.1",
     author="Oluwafemi Idiakhoa",
     author_email="",
     description="Energy-efficient deep learning with adaptive sample selection",
