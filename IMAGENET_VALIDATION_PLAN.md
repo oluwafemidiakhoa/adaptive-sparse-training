@@ -1,5 +1,10 @@
 # ImageNet Validation Plan for Adaptive Sparse Training
 
+> **Evidence status:** ImageNet-100 results are reported, with verification pending. Numerical examples and projections are not measurements. Energy savings are modeled and speedups are estimated. See [IMAGENET100_STATUS.md](IMAGENET100_STATUS.md) for evidence requirements.
+
+> **Historical planning document:** Future-tense milestones and predicted outcomes below describe the original proposal, not current completion status. Full ImageNet and sparse-attention performance projections remain untested here.
+
+
 ## 🎯 Goal
 
 Validate that Adaptive Sparse Training (AST) works on ImageNet with modern architectures (ResNet, ViT), addressing the main community criticism: "Does this scale beyond CIFAR-10?"

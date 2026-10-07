@@ -1,5 +1,8 @@
 # ImageNet-100 Quick Start - 1 Hour to Results
 
+> **Evidence status:** ImageNet-100 results are reported, with verification pending. Numerical examples and projections are not measurements. Energy savings are modeled and speedups are estimated. See [IMAGENET100_STATUS.md](IMAGENET100_STATUS.md) for evidence requirements.
+
+
 ## Pre-Flight Checklist (5 minutes)
 
 - [ ] Kaggle account created and verified
@@ -84,7 +87,7 @@ Epoch  1/1 | Loss: 3.2145 | Val Acc: 42.30% | Act:  9.7% | Save: 90.3% | Time: 3
 FINAL RESULTS
 ================================================================================
 Best Validation Accuracy: 42.30%
-Total Energy Savings: 90.3%
+Modeled Energy Savings: 90.3%
 Average Activation Rate: 9.7%
 Total Training Time: 5.2 minutes
 ```
@@ -94,7 +97,7 @@ Total Training Time: 5.2 minutes
 ✅ **Green Flags** (Everything working):
 - [ ] No errors in output
 - [ ] Validation accuracy > 35% (reasonable for 1 epoch)
-- [ ] Energy savings 88-92%
+- [ ] Modeled energy savings 88-92%
 - [ ] Activation rate 9-12%
 - [ ] Training completed in 5-10 minutes
 
@@ -130,11 +133,12 @@ After full training completes:
 import json
 
 results = {
-    'best_accuracy': 77.2,  # Example
-    'energy_savings': 89.9,
-    'activation_rate': 10.05,
-    'training_time_minutes': 184.2,
-    'speedup': 9.9
+    'evidence_status': 'template_not_a_run',
+    'best_accuracy': None,  # Populate from a completed run
+    'modeled_energy_savings': None,
+    'last_epoch_activation_rate': None,
+    'training_time_minutes': None,
+    'estimated_speedup': None
 }
 
 with open('imagenet100_results.json', 'w') as f:
@@ -152,29 +156,29 @@ Download from Kaggle:
 | Metric | CIFAR-10 | ImageNet-100 | Change |
 |--------|----------|--------------|--------|
 | Accuracy | 61.2% | ??% | ? |
-| Energy Savings | 89.6% | ??% | ? |
+| Modeled Energy Savings | 89.6% | ??% | ? |
 | Activation Rate | 10.4% | ??% | ? |
-| Speedup | 11.5× | ??× | ? |
+| Estimated Speedup | 11.5× | ??× | ? |
 
-## Success Criteria
+## Proposed Success Criteria (not completed evidence)
 
 ### Minimum Success (Ready to share)
-- [x] Accuracy ≥ 70%
-- [x] Energy savings ≥ 85%
-- [x] Activation rate 8-13%
-- [x] No training failures
+- [ ] Accuracy ≥ 70%
+- [ ] Modeled energy savings ≥ 85%
+- [ ] Activation rate 8-13%
+- [ ] No training failures
 
 ### Target Success (Update GitHub)
-- [x] Accuracy ≥ 75%
-- [x] Energy savings ≥ 88%
-- [x] Activation rate 9-12%
-- [x] Speedup ≥ 8×
+- [ ] Accuracy ≥ 75%
+- [ ] Modeled energy savings ≥ 88%
+- [ ] Activation rate 9-12%
+- [ ] Estimated speedup ≥ 8×
 
 ### Excellent Success (Write paper!)
-- [x] Accuracy ≥ 78%
-- [x] Energy savings ≥ 90%
-- [x] Activation rate 9.5-10.5%
-- [x] Speedup ≥ 10×
+- [ ] Accuracy ≥ 78%
+- [ ] Modeled energy savings ≥ 90%
+- [ ] Activation rate 9.5-10.5%
+- [ ] Estimated speedup ≥ 10×
 
 ## Troubleshooting
 
@@ -220,67 +224,11 @@ for i, ax in enumerate(axes.flat):
 plt.show()
 ```
 
-## Post-Success Actions
+## Publication after evidence review
 
-### 1. Update GitHub README (30 min)
-Add section:
-```markdown
-## 🎯 ImageNet-100 Validation
+Use the safe publication wording in [IMAGENET100_STATUS.md](IMAGENET100_STATUS.md). Link actual run artifacts and label modeled and estimated metrics explicitly. Do not publish illustrative values as validated results or claim no retuning without matched evidence.
 
-| Metric | CIFAR-10 | ImageNet-100 |
-|--------|----------|--------------|
-| Accuracy | 61.2% | 77.2% ✅ |
-| Energy Savings | 89.6% | 89.9% ✅ |
-| Activation Rate | 10.4% | 10.05% ✅ |
-| Speedup | 11.5× | 9.9× ✅ |
-
-**Key Finding**: AST scales to ImageNet-100 without retuning!
-```
-
-### 2. Write Medium Article "Part 2" (2 hours)
-Title: "Scaling Adaptive Sparse Training to ImageNet: 77% Accuracy with 90% Energy Savings"
-
-Outline:
-1. Quick recap of CIFAR-10 results
-2. Community feedback and scalability questions
-3. ImageNet-100 experiment setup
-4. Results and analysis
-5. What this validates (pretrained models, larger images, more classes)
-6. Next steps (full ImageNet)
-
-### 3. Post to r/MachineLearning (15 min)
-Title: "[R] Adaptive Sparse Training: Validated on ImageNet-100 (77% Accuracy, 90% Energy Savings)"
-
-```markdown
-**Paper**: [GitHub](https://github.com/oluwafemidiakhoa/adaptive-sparse-training)
-**Code**: Production-ready, 850 lines, fully documented
-
-**CIFAR-10 → ImageNet-100 validation**:
-- Same AST algorithm (no retuning)
-- ResNet50 instead of SimpleCNN
-- 224×224 instead of 32×32
-- 100 classes instead of 10
-
-**Results hold**: 77% accuracy, 90% energy savings, 10× speedup
-
-**Open questions**: Does this work on full ImageNet? Language models?
-```
-
-### 4. Twitter Thread Update (5 min)
-Quote-tweet your original thread:
-```
-Update: Just validated AST on ImageNet-100! 🎉
-
-✅ 77% accuracy (competitive)
-✅ 90% energy savings (same as CIFAR-10!)
-✅ No retuning needed (robust algorithm)
-
-This confirms AST scales beyond toy datasets.
-
-Full ImageNet next. 👀
-
-[Link to Medium Part 2]
-```
+Suggested article title: "Adaptive Sparse Training on ImageNet-100: Reported Results and Verification Gaps".
 
 ## Timeline Summary
 

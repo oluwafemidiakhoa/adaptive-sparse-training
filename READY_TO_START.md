@@ -1,5 +1,10 @@
 # 🚀 Ready to Start ImageNet-100 Validation
 
+> **Evidence status:** ImageNet-100 results are reported, with verification pending. Numerical examples and projections are not measurements. Energy savings are modeled and speedups are estimated. See [IMAGENET100_STATUS.md](IMAGENET100_STATUS.md) for evidence requirements.
+
+> **Historical planning document:** Future-tense milestones and predicted outcomes below describe the original proposal, not current completion status. Full ImageNet and sparse-attention performance projections remain untested here.
+
+
 ## What You Have
 
 ### ✅ Complete Code
@@ -98,17 +103,8 @@ Training Speedup: 9.9×
 
 4. **Twitter Thread Update**
    ```
-   Update: AST validated on ImageNet-100! 🎉
-
-   ✅ 77% accuracy (competitive with baseline)
-   ✅ 90% energy savings (matches CIFAR-10!)
-   ✅ 10× speedup
-   ✅ No hyperparameter retuning needed
-
-   This proves AST isn't just a CIFAR-10 trick.
-
-   Full results: [GitHub link]
-   ```
+   ImageNet-100 results are reported; reproducibility artifacts and matched efficiency measurements are pending.
+```
 
 ### If Needs Tuning (Accuracy <70% or Savings <85%)
 

@@ -1,5 +1,8 @@
 # 📁 File Organization Guide
 
+> **Evidence status:** ImageNet-100 results are reported, with verification pending. Numerical examples and projections are not measurements. Energy savings are modeled and speedups are estimated. See [IMAGENET100_STATUS.md](IMAGENET100_STATUS.md) for evidence requirements.
+
+
 ## 🏆 PRODUCTION FILES (USE THESE!)
 
 ### 1. `KAGGLE_IMAGENET100_AST_PRODUCTION.py`
@@ -9,16 +12,16 @@
 **Results:**
 ```
 Accuracy: 92.12%
-Energy Savings: 61.49%
-Speedup: 1.92×
+Modeled Energy Savings: 61.49%
+Estimated Speedup: 1.92×
 Runtime: 514.7 minutes
 ```
 
 **When to use:**
-- ✅ Publications and papers
+- Publication use requires verification artifacts
 - ✅ Benchmarking comparisons
 - ✅ When accuracy is critical
-- ✅ Demonstrating zero degradation
+- ✅ Investigating accuracy preservation (verification pending)
 
 **Features:**
 - Mixed Precision (AMP)
@@ -35,8 +38,8 @@ Runtime: 514.7 minutes
 **Results:**
 ```
 Accuracy: 91.92%
-Energy Savings: 63.36%
-Speedup: 2.78×
+Modeled Energy Savings: 63.36%
+Estimated Speedup: 2.78×
 Runtime: 519.8 minutes
 ```
 
@@ -80,7 +83,7 @@ These files were development iterations. **Don't use for production!**
 ## 📊 RESULTS & DOCUMENTATION
 
 ### `RESULTS_SUMMARY.md`
-**Complete comparison of both production versions**
+**Complete comparison of both experimental versions**
 - Side-by-side metrics
 - When to use which version
 - Technical details

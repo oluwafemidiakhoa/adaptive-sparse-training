@@ -1,5 +1,8 @@
 # Changelog
 
+> **Evidence status:** ImageNet-100 results are reported, with verification pending. Numerical examples and projections are not measurements. Energy savings are modeled and speedups are estimated. See [IMAGENET100_STATUS.md](IMAGENET100_STATUS.md) for evidence requirements.
+
+
 All notable changes to Adaptive Sparse Training will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
@@ -27,4 +30,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Mixed precision training support (AMP)
 - Comprehensive documentation and examples
 - Validated on CIFAR-10 (92.40% accuracy, 61% energy savings)
-- Validated on ImageNet-100 (92.12% accuracy, 61% energy savings)
+- Reported on ImageNet-100 (92.12% best accuracy, approximately 61% modeled energy savings; verification pending)

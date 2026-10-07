@@ -1,5 +1,8 @@
 # Publish to PyPI - Two Options
 
+> **Evidence status:** ImageNet-100 results are reported, with verification pending. Numerical examples and projections are not measurements. Energy savings are modeled and speedups are estimated. See [IMAGENET100_STATUS.md](IMAGENET100_STATUS.md) for evidence requirements.
+
+
 ## ✅ Option 1: Use GitHub Actions (EASIEST!)
 
 This is the recommended way - fully automated!
@@ -33,7 +36,7 @@ This is the recommended way - fully automated!
      Features:
      - 3-line integration for energy-efficient training
      - 60%+ energy savings with zero accuracy loss
-     - Validated on ImageNet-100 (92.12% accuracy)
+     - Reported ImageNet-100 best accuracy of 92.12% (verification pending)
      - Mixed precision training support
      - PI-controlled adaptive sample selection
      ```

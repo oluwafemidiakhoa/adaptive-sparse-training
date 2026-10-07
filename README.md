@@ -6,33 +6,31 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Production-ready implementation of **Adaptive Sparse Training** with **Sundew Adaptive Gating** - achieving **92.12% accuracy on ImageNet-100** with **61% energy savings** and zero accuracy degradation. Validated on 126,689 images with ResNet50.
+ImageNet-100 experiments are **reported, with verification pending**. This status separates reported observations, illustrative examples, modeled metrics, and projections. It does not assert that experiments were never run.
+
+See [ImageNet-100 evidence status](IMAGENET100_STATUS.md) for metric definitions and limitations.
 
 ![AST Architecture](batched_adaptive_sparse_training_diagram.png)
 
 ## 🚀 Key Results
 
-### 🏆 ImageNet-100 (NEW! - Production Ready)
+### 🏆 ImageNet-100 (reported; verification pending)
 
-| Configuration | Accuracy | Energy Savings | Speedup | Status |
+| Configuration | Reported best accuracy | Modeled energy savings | Estimated speedup | Evidence status |
 |--------------|----------|----------------|---------|--------|
-| **Production (Best Accuracy)** | 92.12% | 61.49% | 1.92× | ✅ Zero degradation |
-| **Efficiency (Max Speed)** | 91.92% | 63.36% | 2.78× | ✅ Minimal degradation |
-| **Baseline (ResNet50)** | 92.18% | 0% | 1.0× | Reference |
+| **Production (Best Accuracy)** | 92.12% | 61.49% | 1.92× | Verification pending |
+| **Efficiency (Max Speed)** | 91.92% | 63.36% | 2.78× | Verification pending |
+| **Baseline (ResNet50)** | 92.18% | 0% | 1.0× | Baseline provenance pending |
 
-**Breakthrough achievements:**
-- ✅ **Zero accuracy loss** - Production version actually improved by 0.06%!
-- ✅ **61% energy savings** - Training on only 38% of samples per epoch
-- ✅ **Works with pretrained models** - Two-stage training (warmup + AST)
-- ✅ **Validated on 126,689 images** - Real-world large-scale dataset
+**Interpretation:** The listed 92.12% score is 0.06 percentage points below the listed 92.18% baseline. Neither an improvement nor zero degradation is established. The production implementation forwards all samples and masks losses; selected-sample fraction is not measured energy savings.
 
 📋 **[FILE_GUIDE.md](FILE_GUIDE.md)** - Which version to use for your needs
 
 ## ⚡ Quick Start - Try AST in 5 Minutes
 
-Want to see 60% energy savings in action? Here's the fastest way to get started:
+Want to investigate adaptive sample selection? Here's the fastest way to get started:
 
-### Option 1: Run Production-Ready ImageNet-100 Training
+### Option 1: Run ImageNet-100 Training
 
 ```bash
 # Clone the repository
@@ -45,19 +43,11 @@ pip install torch torchvision matplotlib numpy tqdm
 # Download ImageNet-100 dataset (or use your own)
 # See IMAGENET100_QUICK_START.md for dataset setup
 
-# Run production training (92.12% accuracy, 61% energy savings)
+# Run training; reported outcomes are not guaranteed
 python KAGGLE_IMAGENET100_AST_PRODUCTION.py
 ```
 
-**Expected output after 100 epochs:**
-```
-Epoch 100/100 | Loss: 0.2847 | Val Acc: 92.12% | Act: 38.51% | Energy Save: 61.49%
-Final Results:
-- Validation Accuracy: 92.12%
-- Energy Savings: 61.49%
-- Training Speedup: 1.92×
-- Status: Zero accuracy degradation ✅
-```
+**The script defaults to 50 epochs (10 warmup + 40 AST). Outcomes depend on the run; the reported figures above are not guaranteed output. Save raw run artifacts for verification.
 
 ### Option 2: Try on Your Own Dataset (Minimal Code)
 
@@ -162,31 +152,23 @@ After trying the basic examples:
 | **Activation Rate** | 10.4% | ✅ On 10% target |
 | **Training Time** | 10.5 min | vs 120 min baseline |
 
-## 🔬 ImageNet-100 Validation - NOW COMPLETE! ✅
+## ImageNet-100 reported experiments
 
-### Production Files (Use These!)
+- [Production script](KAGGLE_IMAGENET100_AST_PRODUCTION.py): reported best accuracy 92.12%, modeled overall savings 61.49%, estimated speedup 1.92×.
+- [Two-stage script](KAGGLE_IMAGENET100_AST_TWO_STAGE_Prod.py): reported best accuracy 91.92%, modeled overall savings 63.36%, estimated speedup 2.78×. Its best score is reported during warmup; it does not establish final AST accuracy.
 
-1. **[KAGGLE_IMAGENET100_AST_PRODUCTION.py](KAGGLE_IMAGENET100_AST_PRODUCTION.py)** - Best accuracy (92.12%)
-   - 61.49% energy savings
-   - 1.92× training speedup
-   - Zero accuracy degradation
-   - **Recommended for publications and demos**
-
-2. **[KAGGLE_IMAGENET100_AST_TWO_STAGE_Prod.py](KAGGLE_IMAGENET100_AST_TWO_STAGE_Prod.py)** - Maximum efficiency (2.78× speedup)
-   - 63.36% energy savings
-   - 91.92% accuracy (~1% degradation)
-   - **Recommended for rapid experimentation**
+These figures require raw artifacts and matched comparisons before publication as verified performance.
 
 ### Technical Implementation
 
 **Two-Stage Training Strategy:**
 1. **Warmup Phase (10 epochs)**: Train on 100% of samples to adapt pretrained ImageNet-1K weights to ImageNet-100
-2. **AST Phase (90 epochs)**: Adaptive sparse training with 10-40% activation rate
+2. **AST Phase (40 epochs)**: Adaptive sparse training with 10-40% activation rate
 
 **Key Optimizations:**
-- Gradient masking (single forward pass) - 3× speedup
+- Gradient masking (single forward pass; optimization speedup unmeasured)
 - Mixed precision training (AMP) - FP16/FP32 automatic
-- Increased data workers (8 workers + prefetching) - 1.3× speedup
+- Increased data workers (8 workers + prefetching; optimization speedup unmeasured)
 - PI controller for dynamic threshold adjustment
 
 **Dataset:**
@@ -220,7 +202,7 @@ After trying the basic examples:
 
 **Does adaptive selection work with modern architectures and large datasets?**
 
-✅ **YES** - Validated with ResNet50 on 126K images with zero accuracy loss
+Reported ResNet50 experiments use approximately 126K training images. Accuracy preservation and efficiency require the evidence listed in [IMAGENET100_STATUS.md](IMAGENET100_STATUS.md).
 
 ---
 
@@ -563,7 +545,7 @@ If you use this code in your research, please cite:
   author={Idiakhoa, Oluwafemi},
   year={2025},
   url={https://github.com/oluwafemidiakhoa/adaptive-sparse-training},
-  note={ImageNet-100 validation: 92.12\% accuracy, 61\% energy savings}
+  note={ImageNet-100 reported best accuracy: 92.12\%; modeled energy savings: approximately 61\%; verification pending}
 }
 ```
 
@@ -578,9 +560,9 @@ If you use this code in your research, please cite:
 ### Latest Updates
 
 **October 2025**: 🎉 ImageNet-100 validation complete!
-- 92.12% accuracy with 61% energy savings
-- Zero accuracy degradation achieved
-- Production-ready implementations available
+- Reported best accuracy 92.12%; approximately 61% modeled energy savings
+- Accuracy preservation remains to be verified
+- Experimental implementations available
 - Full documentation and guides published
 
 ### Announcements LIVE (October 28, 2025) ✅
@@ -622,4 +604,4 @@ If you find this project useful, please consider giving it a star ⭐!
 ---
 
 **Built with**: PyTorch | ImageNet-100 | ResNet50 | PI Control | Green AI
-**Status**: ✅ Production Ready | 📊 Validated | 🚀 Zero Degradation | 🌍 61% Energy Savings
+**ImageNet-100 status**: Reported results | Verification pending | Modeled energy savings | Estimated speedup
