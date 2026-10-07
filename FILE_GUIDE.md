@@ -3,18 +3,18 @@
 > **Evidence status:** ImageNet-100 results are reported, with verification pending. Numerical examples and projections are not measurements. Energy savings are modeled and speedups are estimated. See [IMAGENET100_STATUS.md](IMAGENET100_STATUS.md) for evidence requirements.
 
 
-## 🏆 PRODUCTION FILES (USE THESE!)
+## ImageNet-100 experimental implementations
 
 ### 1. `KAGGLE_IMAGENET100_AST_PRODUCTION.py`
-**Status:** ✅ PRODUCTION READY
-**Purpose:** Best accuracy version
+**Status:** Reported results; verification pending
+**Purpose:** Version with the higher reported best accuracy
 
 **Results:**
 ```
-Accuracy: 92.12%
+Reported best accuracy: 92.12%
 Modeled Energy Savings: 61.49%
 Estimated Speedup: 1.92×
-Runtime: 514.7 minutes
+Reported runtime: 514.7 minutes
 ```
 
 **When to use:**
@@ -26,33 +26,33 @@ Runtime: 514.7 minutes
 **Features:**
 - Mixed Precision (AMP)
 - Gradient masking
-- 40% activation rate
+- 40% target activation (observed rate requires run artifacts)
 - 8 workers + prefetching
 
 ---
 
 ### 2. `KAGGLE_IMAGENET100_AST_TWO_STAGE_Prod.py`
-**Status:** ✅ PRODUCTION READY
-**Purpose:** Maximum efficiency version
+**Status:** Reported results; verification pending
+**Purpose:** Version with the larger activation-based speedup estimate
 
 **Results:**
 ```
-Accuracy: 91.92%
+Reported best accuracy: 91.92%
 Modeled Energy Savings: 63.36%
 Estimated Speedup: 2.78×
-Runtime: 519.8 minutes
+Reported runtime: 519.8 minutes
 ```
 
 **When to use:**
-- ✅ Edge/mobile deployment
-- ✅ Energy-constrained environments
-- ✅ When speedup is critical
-- ✅ Maximum efficiency demos
+- Experimental investigation; deployment suitability unverified
+- Study sample selection under resource constraints
+- Investigate runtime against a matched baseline
+- Demonstrate modeled selection metrics
 
 **Features:**
 - Standard training (no AMP)
-- 10-15% activation rate
-- Higher energy savings
+- 20% target activation in the current script; observed rate requires run artifacts
+- Higher modeled savings; actual energy savings unmeasured
 - More aggressive pruning
 
 ---
@@ -82,7 +82,7 @@ These files were development iterations. **Don't use for production!**
 
 ## 📊 RESULTS & DOCUMENTATION
 
-### `RESULTS_SUMMARY.md`
+### `results/RESULTS_SUMMARY.md`
 **Complete comparison of both experimental versions**
 - Side-by-side metrics
 - When to use which version
@@ -105,13 +105,13 @@ These files were development iterations. **Don't use for production!**
 ### "Which file should I use?"
 
 ```
-Need highest accuracy?
+Need the higher reported best accuracy?
   → KAGGLE_IMAGENET100_AST_PRODUCTION.py (92.12%)
 
-Need maximum energy savings?
+Need the higher modeled savings estimate?
   → KAGGLE_IMAGENET100_AST_TWO_STAGE_Prod.py (63%)
 
-Need fastest speedup?
+Need the higher estimated speedup?
   → KAGGLE_IMAGENET100_AST_TWO_STAGE_Prod.py (2.78×)
 
 Testing new features?

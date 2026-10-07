@@ -1,9 +1,9 @@
 # 🏆 Two-Stage Adaptive Sparse Training - ImageNet-100 Results
 
-> **Evidence status:** ImageNet-100 results are reported, with verification pending. Numerical examples and projections are not measurements. Energy savings are modeled and estimated speedups are estimated. See [IMAGENET100_STATUS.md](../IMAGENET100_STATUS.md) for evidence requirements.
+> **Evidence status:** ImageNet-100 results are reported, with verification pending. Numerical examples and projections are not measurements. Energy savings are modeled and speedups are estimated. See [IMAGENET100_STATUS.md](../IMAGENET100_STATUS.md) for evidence requirements.
 
 
-## 📊 PRODUCTION RESULTS COMPARISON
+## Reported results comparison (verification pending)
 
 ---
 
@@ -95,7 +95,7 @@
 - ✅ Publication/benchmark use requires raw artifacts
 
 ### Choose **TWO-STAGE (Prod)** if you want:
-- ✅ Maximum energy efficiency (63% savings)
+- ✅ Higher modeled savings (63%); measured energy efficiency unknown
 - ✅ Highest estimated speedup (2.78×)
 - ✅ Edge/mobile deployment
 - ✅ Extreme computational constraints
@@ -155,9 +155,9 @@ deepseek_physical_ai_sundew/
 
 ## 🎉 ACHIEVEMENTS
 
-✅ **World-class accuracy:** 92.12% on ImageNet-100
+✅ **Reported best validation accuracy:** 92.12% on ImageNet-100
 ✅ **Significant modeled energy savings:** 61-63% overall
-✅ **Practical estimated speedup:** 1.9-2.8× faster training
+✅ **Activation-based speedup estimate:** 1.9-2.8×; runtime speedup unmeasured
 ✅ **Accuracy preservation:** requires phase-specific artifacts and matched runs
 ✅ **Publication evidence pending:** summaries and visualizations do not replace raw run artifacts
 
