@@ -1,5 +1,10 @@
 # Why Adaptive Sparse Training is Innovative
 
+> **Evidence status:** ImageNet-100 results are reported, with verification pending. Numerical examples and projections are not measurements. Energy savings are modeled and speedups are estimated. See [IMAGENET100_STATUS.md](IMAGENET100_STATUS.md) for evidence requirements.
+
+> **Historical planning document:** Future-tense milestones and predicted outcomes below describe the original proposal, not current completion status. Full ImageNet and sparse-attention performance projections remain untested here.
+
+
 ## The Problem: AI Training is Wasteful
 
 ### Current State (2025)
@@ -272,7 +277,9 @@ Equivalent to:
 - Accuracy: **Within 2% of full training**
 - Speedup: **16× (CPU, no sparse attention)**
 
-### Projected ImageNet (Next)
+### Untested ImageNet projection (separate from ImageNet-100 reports)
+
+These values are hypotheses, not measured results. The proposed sparse-attention comparison has no linked matched baseline or run artifacts.
 
 - Training time: **1.5 hours** (vs 72h baseline)
 - Cost: **$30** (vs $1,440 baseline)

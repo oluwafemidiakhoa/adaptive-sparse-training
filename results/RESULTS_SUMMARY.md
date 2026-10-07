@@ -1,6 +1,9 @@
 # 🏆 Two-Stage Adaptive Sparse Training - ImageNet-100 Results
 
-## 📊 PRODUCTION RESULTS COMPARISON
+> **Evidence status:** ImageNet-100 results are reported, with verification pending. Numerical examples and projections are not measurements. Energy savings are modeled and speedups are estimated. See [IMAGENET100_STATUS.md](../IMAGENET100_STATUS.md) for evidence requirements.
+
+
+## Reported results comparison (verification pending)
 
 ---
 
@@ -8,31 +11,31 @@
 
 **File:** `KAGGLE_IMAGENET100_AST_PRODUCTION.py`
 
-### Final Results:
+### Reported Results (raw artifacts pending):
 ```
 🏆 Best Validation Accuracy: 92.12%
-⚡ Energy Savings (AST phase): 76.87%
-⚡ Overall Energy Savings: 61.49%
-🚀 Overall Speedup: 1.92×
+⚡ Modeled Energy Savings (AST phase): 76.87%
+⚡ Overall Modeled Energy Savings: 61.49%
+🚀 Overall Estimated Speedup: 1.92×
 ⏱️  Total Time: 514.7 minutes (8.58 hours)
 ```
 
 ### Stage Breakdown:
 - **Stage 1 (Warmup):** 91.94% accuracy after 10 epochs (100% samples)
 - **Stage 2 (AST):** 92.00% accuracy after 40 epochs (~20% samples)
-- **Accuracy Change:** -0.06% (actually IMPROVED!)
+- **Warmup-to-final-AST change:** +0.06 percentage points (91.94% to 92.00%), as reported. Best accuracy 92.12% is a separate statistic; compared with the README baseline 92.18%, its difference is −0.06 percentage points.
 
 ### Key Features:
 - ✅ **Highest accuracy** (92.12%)
-- ✅ **Zero accuracy degradation** from warmup to AST
+- ✅ **Accuracy preservation unverified** from warmup to AST
 - ✅ Mixed Precision (AMP) training
 - ✅ Gradient masking optimization
 - ✅ 8 workers with prefetching
 - ✅ Target activation: 40% (balanced mode)
 
 ### Use Cases:
-- Publications (best accuracy)
-- Production deployment (stable performance)
+- Accuracy investigation (reported best score)
+- Deployment suitability requires separate validation
 - When accuracy is critical
 
 ---
@@ -41,23 +44,23 @@
 
 **File:** `KAGGLE_IMAGENET100_AST_TWO_STAGE_Prod.py`
 
-### Final Results:
+### Reported Results (raw artifacts pending):
 ```
 🏆 Best Validation Accuracy: 91.92%
-⚡ Energy Savings (AST phase): 79.20%
-⚡ Overall Energy Savings: 63.36%
-🚀 Overall Speedup: 2.78×
+⚡ Modeled Energy Savings (AST phase): 79.20%
+⚡ Overall Modeled Energy Savings: 63.36%
+🚀 Overall Estimated Speedup: 2.78×
 ⏱️  Total Time: 519.8 minutes (8.66 hours)
 ```
 
 ### Stage Breakdown:
 - **Stage 1 (Warmup):** 91.92% accuracy after 10 epochs (100% samples)
 - **Stage 2 (AST):** Maintained 85-90% accuracy (~10-15% samples)
-- **Accuracy Change:** ~1-2% drop during AST phase
+- **AST-phase accuracy:** reported as 85–90%; a specific final value and matched comparison are missing. Best 91.92% is reported during warmup.
 
 ### Key Features:
-- ✅ **Maximum energy savings** (63.36% overall, 79.20% AST)
-- ✅ **Highest speedup** (2.78×)
+- ✅ **Maximum modeled energy savings** (63.36% overall, 79.20% AST)
+- ✅ **Highest estimated speedup** (2.78×)
 - ✅ More aggressive sparse sampling
 - ✅ Target activation: 10-15% (efficiency mode)
 - ✅ Standard training (no AMP complications)
@@ -74,11 +77,11 @@
 | Metric | ULTIMATE (Accuracy) | TWO-STAGE (Efficiency) | Winner |
 |--------|---------------------|------------------------|--------|
 | **Validation Accuracy** | **92.12%** | 91.92% | 🥇 ULTIMATE |
-| **AST Energy Savings** | 76.87% | **79.20%** | 🥇 TWO-STAGE |
-| **Overall Energy Savings** | 61.49% | **63.36%** | 🥇 TWO-STAGE |
-| **Training Speedup** | 1.92× | **2.78×** | 🥇 TWO-STAGE |
+| **AST Modeled Energy Savings** | 76.87% | **79.20%** | 🥇 TWO-STAGE |
+| **Overall Modeled Energy Savings** | 61.49% | **63.36%** | 🥇 TWO-STAGE |
+| **Estimated Training Speedup** | 1.92× | **2.78×** | 🥇 TWO-STAGE |
 | **Training Time** | **514.7 min** | 519.8 min | 🥇 ULTIMATE |
-| **Accuracy Degradation** | **-0.06%** (improved!) | ~1-2% | 🥇 ULTIMATE |
+| **Accuracy Degradation** | Unverified; distinguish baseline and warmup | ~1-2% | 🥇 ULTIMATE |
 | **Activation Rate** | ~20% | ~10-15% | - |
 
 ---
@@ -87,13 +90,13 @@
 
 ### Choose **ULTIMATE (PRODUCTION)** if you want:
 - ✅ Highest accuracy (92.12%)
-- ✅ Zero accuracy drop during AST
-- ✅ Stable, production-ready performance
-- ✅ Best for publications/benchmarking
+- ✅ Accuracy preservation unverified during AST
+- ✅ Deployment suitability unverified
+- ✅ Publication/benchmark use requires raw artifacts
 
 ### Choose **TWO-STAGE (Prod)** if you want:
-- ✅ Maximum energy efficiency (63% savings)
-- ✅ Highest speedup (2.78×)
+- ✅ Higher modeled savings (63%); measured energy efficiency unknown
+- ✅ Highest estimated speedup (2.78×)
 - ✅ Edge/mobile deployment
 - ✅ Extreme computational constraints
 
@@ -152,11 +155,11 @@ deepseek_physical_ai_sundew/
 
 ## 🎉 ACHIEVEMENTS
 
-✅ **World-class accuracy:** 92.12% on ImageNet-100
-✅ **Significant energy savings:** 61-63% overall
-✅ **Practical speedup:** 1.9-2.8× faster training
-✅ **Zero degradation:** AST maintains/improves warmup accuracy
-✅ **Publication-ready:** Comprehensive visualizations & results
+✅ **Reported best validation accuracy:** 92.12% on ImageNet-100
+✅ **Significant modeled energy savings:** 61-63% overall
+✅ **Activation-based speedup estimate:** 1.9-2.8×; runtime speedup unmeasured
+✅ **Accuracy preservation:** requires phase-specific artifacts and matched runs
+✅ **Publication evidence pending:** summaries and visualizations do not replace raw run artifacts
 
 ---
 
@@ -168,7 +171,7 @@ deepseek_physical_ai_sundew/
   author={Idiakhoa, Oluwafemi},
   journal={In Preparation},
   year={2024},
-  note={ImageNet-100 experiments achieving 92.12\% accuracy with 61\% energy savings}
+  note={ImageNet-100 experiments achieving 92.12\% accuracy with 61\% modeled energy savings}
 }
 ```
 
@@ -185,7 +188,7 @@ deepseek_physical_ai_sundew/
 ---
 
 **Last Updated:** 2025-01-24
-**Status:** ✅ Production Ready
+**Status:** Reported results; verification pending
 **Contact:** [Your Email]
 
 ---

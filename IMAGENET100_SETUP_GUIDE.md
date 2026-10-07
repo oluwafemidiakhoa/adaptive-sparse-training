@@ -1,5 +1,8 @@
 # ImageNet-100 Experiment Setup Guide
 
+> **Evidence status:** ImageNet-100 results are reported, with verification pending. Numerical examples and projections are not measurements. Energy savings are modeled and speedups are estimated. See [IMAGENET100_STATUS.md](IMAGENET100_STATUS.md) for evidence requirements.
+
+
 ## Quick Start (30 minutes)
 
 ### Step 1: Create Kaggle Account (5 min)
@@ -99,13 +102,14 @@ Epoch 40/40 | Loss: 1.8456 | Val Acc: 76.50% | Act: 10.1% | Save: 89.9% | Time: 
 ================================================================================
 FINAL RESULTS
 ================================================================================
+ILLUSTRATIVE OUTPUT — NOT A MEASURED RUN
 Best Validation Accuracy: 77.20%
-Total Energy Savings: 89.9%
+Modeled Energy Savings: 89.9%
 Average Activation Rate: 10.05%
 Total Training Time: 184.2 minutes
 
 Estimated Baseline Time: 1832.6 minutes
-Training Speedup: 9.9×
+Estimated Speedup: 9.9×
 ================================================================================
 ```
 
@@ -173,7 +177,7 @@ Before claiming ImageNet-100 results, verify:
 - [ ] Dataset loaded correctly (130K train, 5K val images)
 - [ ] Model trains without errors for full 40 epochs
 - [ ] Validation accuracy > 75% (competitive with baseline)
-- [ ] Energy savings 88-91%
+- [ ] Modeled energy savings 88-91%
 - [ ] Activation rate converges to 9-12%
 - [ ] Training completes in < 5 hours
 - [ ] Best model saved successfully
@@ -233,7 +237,7 @@ Before claiming ImageNet-100 results, verify:
 | Test run (1 epoch) | 15 min | Verify code works |
 | Full ImageNet-100 (40 epochs) | 4-6 hours | 75-80% accuracy results |
 | Analysis & writeup | 2 hours | Updated README, blog post |
-| **Total** | **1 day** | **Validated ImageNet results** |
+| **Total** | **1 day** | **Run artifacts for evidence review** |
 
 ---
 

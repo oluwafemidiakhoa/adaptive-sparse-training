@@ -1,5 +1,10 @@
 # CIFAR-10 vs ImageNet-100: What Changes?
 
+> **Evidence status:** ImageNet-100 results are reported, with verification pending. Numerical examples and projections are not measurements. Energy savings are modeled and speedups are estimated. See [IMAGENET100_STATUS.md](IMAGENET100_STATUS.md) for evidence requirements.
+
+> **Historical planning document:** Future-tense milestones and predicted outcomes below describe the original proposal, not current completion status. Full ImageNet and sparse-attention performance projections remain untested here.
+
+
 Quick reference for adapting AST from CIFAR-10 to ImageNet-100.
 
 ## Dataset Differences

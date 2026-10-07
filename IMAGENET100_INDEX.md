@@ -1,5 +1,10 @@
 # ImageNet-100 Validation - Complete Resource Index
 
+> **Evidence status:** ImageNet-100 results are reported, with verification pending. Numerical examples and projections are not measurements. Energy savings are modeled and speedups are estimated. See [IMAGENET100_STATUS.md](IMAGENET100_STATUS.md) for evidence requirements.
+
+> **Historical planning document:** Future-tense milestones and predicted outcomes below describe the original proposal, not current completion status. Full ImageNet and sparse-attention performance projections remain untested here.
+
+
 ## 📋 Quick Navigation
 
 **Just starting?** → [READY_TO_START.md](READY_TO_START.md)

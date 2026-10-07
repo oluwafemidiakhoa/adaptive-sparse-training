@@ -1,12 +1,17 @@
 # 🚀 Ready to Start ImageNet-100 Validation
 
+> **Evidence status:** ImageNet-100 results are reported, with verification pending. Numerical examples and projections are not measurements. Energy savings are modeled and speedups are estimated. See [IMAGENET100_STATUS.md](IMAGENET100_STATUS.md) for evidence requirements.
+
+> **Historical planning document:** Future-tense milestones and predicted outcomes below describe the original proposal, not current completion status. Full ImageNet and sparse-attention performance projections remain untested here.
+
+
 ## What You Have
 
 ### ✅ Complete Code
 - **KAGGLE_IMAGENET100_AST.py** (570 lines)
   - Adapts CIFAR-10 AST to ImageNet-100
   - ResNet50 pretrained model
-  - Same PI controller (no retuning needed)
+  - Original PI-controller configuration (transfer without retuning remains a hypothesis)
   - GPU-optimized for 224×224 images
 
 ### ✅ Step-by-Step Guides
@@ -69,46 +74,9 @@ Training Speedup: 9.9×
 
 ## After Results Come In
 
-### If Successful (Accuracy ≥75%, Savings ≥88%)
+### Publication after verification
 
-1. **Update GitHub README** (30 min)
-   ```markdown
-   ## 🎯 ImageNet-100 Validation Results
-
-   | Metric | CIFAR-10 | ImageNet-100 |
-   |--------|----------|--------------|
-   | Accuracy | 61.2% | 77.2% ✅ |
-   | Energy Savings | 89.6% | 89.9% ✅ |
-   | Speedup | 11.5× | 9.9× ✅ |
-
-   **Key Finding**: AST scales to larger datasets and pretrained models without retuning!
-   ```
-
-2. **Write Medium Article "Part 2"** (2 hours)
-   - Title: "Scaling AST to ImageNet: 90% Energy Savings Hold at Scale"
-   - Cover: Setup, results, analysis, next steps
-   - Include comparison table
-   - Link to GitHub code
-
-3. **Post to r/MachineLearning** (You have karma now!)
-   - Title: "[R] Adaptive Sparse Training: ImageNet-100 Validation Results"
-   - Show both CIFAR-10 and ImageNet-100 results
-   - Emphasize: Same algorithm, no retuning, scales well
-   - Ask: "Would this work on language models?"
-
-4. **Twitter Thread Update**
-   ```
-   Update: AST validated on ImageNet-100! 🎉
-
-   ✅ 77% accuracy (competitive with baseline)
-   ✅ 90% energy savings (matches CIFAR-10!)
-   ✅ 10× speedup
-   ✅ No hyperparameter retuning needed
-
-   This proves AST isn't just a CIFAR-10 trick.
-
-   Full results: [GitHub link]
-   ```
+Use the safe publication wording in [IMAGENET100_STATUS.md](IMAGENET100_STATUS.md). Replace examples with linked run artifacts. Do not claim measured energy savings, measured speedup, accuracy preservation, or generalization without the corresponding evidence.
 
 ### If Needs Tuning (Accuracy <70% or Savings <85%)
 
@@ -216,7 +184,7 @@ c:\Users\adminidiakhoa\deepseek_physical_ai_sundew\
 
 ## Why This Matters
 
-**Current state**: AST validated on CIFAR-10 (small toy dataset)
+**Original planning state**: CIFAR-10 proof of concept; current ImageNet-100 evidence is documented in IMAGENET100_STATUS.md
 
 **Community question**: "Does this scale?"
 
